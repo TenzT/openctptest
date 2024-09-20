@@ -4,6 +4,7 @@
 
 #include "CMduserHandler.h"
 #include <unistd.h>
+#include <string.h>
 
 void CMduserHandler::connect(std::string front_addr) {
     m_mdApi = CThostFtdcMdApi::CreateFtdcMdApi("./flow_md", false, true);
@@ -18,6 +19,8 @@ void CMduserHandler::connect(std::string front_addr) {
 void CMduserHandler::login() {
     CThostFtdcReqUserLoginField t = {0};
 
+    strcpy(t.BrokerID, "2344");
+
     while (m_mdApi->ReqUserLogin(&t, 1) != 0) {
         std::cout << "logining..." << std::endl;
         sleep(5);
@@ -27,7 +30,7 @@ void CMduserHandler::login() {
 void CMduserHandler::subscribe(char** ppInstrument, int ppInstrumentCount) {
     std::cout << "subscribe" << std::endl;
     while (m_mdApi->SubscribeMarketData(ppInstrument, ppInstrumentCount)!=0) {
-        std::cout << "subscribing..." << std::endl;
+        std::cout << "SubscribeMarketData..." << std::endl;
         sleep(5);
     }
 }
@@ -43,3 +46,11 @@ void CMduserHandler::OnFrontConnected() {
 void CMduserHandler::OnFrontDisconnected(int nReason) {
     std::cout << "Disconnect for reason " << nReason << std::endl;
 }
+
+void CMduserHandler::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    std::cout << "User logon " << std::endl;
+};
+
+void CMduserHandler::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
+    printf("OnRtnForQuoteRsp\n");
+};

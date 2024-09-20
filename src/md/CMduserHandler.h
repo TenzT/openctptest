@@ -22,6 +22,10 @@ public:
 
         void OnFrontDisconnected(int nReason) override;
 
+        void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) override;
+
+        void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) override;
+
 };
 
 
