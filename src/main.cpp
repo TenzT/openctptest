@@ -6,22 +6,18 @@
 
 int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!" << std::endl;
+
     CMduserHandler* mduser_handler = new CMduserHandler();
+
+    for (int i=0; i<argc-2; ++i) {
+        mduser_handler->subscribe(const_cast<char*> (argv[i+2]));
+    }
+
     mduser_handler->connect(argv[1]);
     mduser_handler->login();
-
-    int nInstrument = argc - 2;
-
-    char** ppInstrument = new char * [nInstrument];
-    for (int i=0; i<argc-2; ++i) {
-        ppInstrument[i] = new char[10];
-        strcpy(ppInstrument[i], argv[i+2]);
-    }
-    mduser_handler->subscribe(ppInstrument, nInstrument);
 
     sleep(1000);
 
     delete mduser_handler;
-    delete[] ppInstrument;
     return 0;
 }

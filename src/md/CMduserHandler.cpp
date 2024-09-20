@@ -6,14 +6,20 @@
 #include <unistd.h>
 #include <string.h>
 
-void CMduserHandler::connect(std::string front_addr) {
+CMduserHandler::CMduserHandler() {
+    ppInstrument = new char *[50];
+}
+
+void CMduserHandler::connect(std::string frontString) {
     m_mdApi = CThostFtdcMdApi::CreateFtdcMdApi("./flow_md", false, true);
 
     m_mdApi->RegisterSpi(this);
 
-    m_mdApi->RegisterFront(const_cast<char*>(front_addr.c_str()));
+    m_mdApi->RegisterFront(const_cast<char*>(frontString.c_str()));
 
     m_mdApi->Init();
+
+    m_mdApi->Join();
 }
 
 void CMduserHandler::login() {
@@ -27,12 +33,10 @@ void CMduserHandler::login() {
     }
 }
 
-void CMduserHandler::subscribe(char** ppInstrument, int ppInstrumentCount) {
-    std::cout << "subscribe" << std::endl;
-    while (m_mdApi->SubscribeMarketData(ppInstrument, ppInstrumentCount)!=0) {
-        std::cout << "SubscribeMarketData..." << std::endl;
-        sleep(5);
-    }
+void CMduserHandler::subscribe(char* instrumentId) {
+    ppInstrument[nInstrument] = new char[10];
+    strcpy(ppInstrument[nInstrument], instrumentId);
+    ++nInstrument;
 }
 
 void CMduserHandler::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
@@ -49,8 +53,22 @@ void CMduserHandler::OnFrontDisconnected(int nReason) {
 
 void CMduserHandler::OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
     std::cout << "User logon " << std::endl;
+    this->HandleUserLogin();
 };
 
 void CMduserHandler::OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {
     printf("OnRtnForQuoteRsp\n");
+}
+
+void CMduserHandler::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument,
+    CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {
+    std::cout << "subscribe success" << std::endl;
+}
+
+void CMduserHandler::HandleUserLogin() const {
+    std::cout << "subscribe" << std::endl;
+    while (m_mdApi->SubscribeMarketData(ppInstrument, nInstrument)!=0) {
+        std::cout << "SubscribeMarketData..." << std::endl;
+        sleep(5);
+    }
 };

@@ -10,11 +10,13 @@
 class CMduserHandler : public CThostFtdcMdSpi {
 private:
         CThostFtdcMdApi* m_mdApi;
+        char** ppInstrument;
+        int nInstrument;
 public:
-
-        void connect(std::string front_string);
+        CMduserHandler();
+        void connect(std::string frontString);
         void login();
-        void subscribe(char **ppInstrument, int ppInstrumentCount);
+        void subscribe(char * instrumentId);
 
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) override;
 
@@ -26,6 +28,9 @@ public:
 
         void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) override;
 
+        void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) override;
+
+        void HandleUserLogin() const;
 };
 
 
