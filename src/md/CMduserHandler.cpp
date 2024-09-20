@@ -10,7 +10,7 @@ void CMduserHandler::connect(std::string front_addr) {
 
     m_mdApi->RegisterSpi(this);
 
-    m_mdApi->RegisterFront(front_addr.data());
+    m_mdApi->RegisterFront(const_cast<char*>(front_addr.c_str()));
 
     m_mdApi->Init();
 }
