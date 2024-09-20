@@ -10,7 +10,7 @@ CMduserHandler::CMduserHandler() {
     ppInstrument = new char *[50];
 }
 
-void CMduserHandler::connect(std::string frontString) {
+void CMduserHandler::connect(const std::string &frontString) {
     m_mdApi = CThostFtdcMdApi::CreateFtdcMdApi("./flow_md", false, true);
 
     m_mdApi->RegisterSpi(this);
@@ -22,7 +22,7 @@ void CMduserHandler::connect(std::string frontString) {
     m_mdApi->Join();
 }
 
-void CMduserHandler::login() {
+void CMduserHandler::login() const {
     CThostFtdcReqUserLoginField t = {0};
 
     strcpy(t.BrokerID, "2344");
@@ -40,7 +40,10 @@ void CMduserHandler::subscribe(char* instrumentId) {
 }
 
 void CMduserHandler::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-    printf("OnRtnDepthMatketData\n");
+    printf("\nOnRtnDepthMatketData\n");
+    std::cout << "TradingDay: " << pDepthMarketData->TradingDay << std::endl;
+    std::cout << "ExchangeID: " << pDepthMarketData->ExchangeID << std::endl;
+    std::cout << "InstrumentID: " << pDepthMarketData->InstrumentID << std::endl;
 }
 
 void CMduserHandler::OnFrontConnected() {
@@ -66,6 +69,7 @@ void CMduserHandler::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpec
 }
 
 void CMduserHandler::HandleUserLogin() const {
+    // 需要在login之后再发起订阅才有效
     std::cout << "subscribe" << std::endl;
     while (m_mdApi->SubscribeMarketData(ppInstrument, nInstrument)!=0) {
         std::cout << "SubscribeMarketData..." << std::endl;

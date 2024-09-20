@@ -14,8 +14,8 @@ private:
         int nInstrument;
 public:
         CMduserHandler();
-        void connect(std::string frontString);
-        void login();
+        void connect(const std::string &frontString);
+        void login() const;
         void subscribe(char * instrumentId);
 
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) override;
