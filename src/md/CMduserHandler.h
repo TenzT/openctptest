@@ -13,7 +13,8 @@ private:
         char** ppInstrument;
         int nInstrument;
 public:
-        CMduserHandler();
+        CMduserHandler() noexcept;
+        CMduserHandler(CMduserHandler&& rhs) noexcept;
         void connect(const std::string &frontString);
         void login() const;
         void subscribe(char * instrumentId);

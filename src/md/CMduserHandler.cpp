@@ -6,8 +6,17 @@
 #include <unistd.h>
 #include <string.h>
 
-CMduserHandler::CMduserHandler() {
+CMduserHandler::CMduserHandler() noexcept {
     ppInstrument = new char *[50];
+}
+
+CMduserHandler::CMduserHandler(CMduserHandler &&rhs) noexcept {
+    std::cout << "Moving Constructor" << std::endl;
+    m_mdApi = rhs.m_mdApi;
+    ppInstrument = rhs.ppInstrument;
+    nInstrument = rhs.nInstrument;
+    rhs.m_mdApi = nullptr;
+    ppInstrument = rhs.ppInstrument;
 }
 
 void CMduserHandler::connect(const std::string &frontString) {

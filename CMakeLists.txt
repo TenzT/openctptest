@@ -40,4 +40,4 @@ add_executable(CTPTest src/main.cpp
         src/md/CMduserHandler.cpp
         src/md/CMduserHandler.h)
 
-target_link_libraries(CTPTest thostmduserapi_se)
+target_link_libraries(CTPTest thostmduserapi_se yijinjing)
