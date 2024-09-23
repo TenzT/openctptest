@@ -1,0 +1,4 @@
+/Users/tandezhi/kungfu/core/cpp/yijinjing/node/CMakeFiles/node_nanomsg.dir
+/Users/tandezhi/kungfu/core/cpp/yijinjing/node/CMakeFiles/node_sqlite3.dir
+/Users/tandezhi/kungfu/core/cpp/yijinjing/node/CMakeFiles/edit_cache.dir
+/Users/tandezhi/kungfu/core/cpp/yijinjing/node/CMakeFiles/rebuild_cache.dir
