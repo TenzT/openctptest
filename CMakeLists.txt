@@ -21,6 +21,10 @@ include_directories(thirdparty/json-3.5.0/single_include)
 include_directories(thirdparty/hffix-b67d404f/include)
 
 # yijinjing
+include_directories(thirdparty/yijinjing/include)
+
+
+# yijinjing
 add_subdirectory(thirdparty/yijinjing)
 # fmt
 add_subdirectory(thirdparty/fmt-5.3.0)
@@ -38,6 +42,9 @@ endif()
 
 add_executable(CTPTest src/main.cpp
         src/md/CMduserHandler.cpp
-        src/md/CMduserHandler.h)
+        src/md/CMduserHandler.h
+        src/yijinjing/MyLocator.cpp
+        src/yijinjing/MyLocator.h
+)
 
 target_link_libraries(CTPTest thostmduserapi_se yijinjing)
