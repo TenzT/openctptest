@@ -6,8 +6,13 @@
 #include <unistd.h>
 #include <string.h>
 
-CMduserHandler::CMduserHandler() noexcept {
+#include "../entity/Quotes.h"
+
+CMduserHandler::CMduserHandler() noexcept: m_mdApi(nullptr), nInstrument(0) {
     ppInstrument = new char *[50];
+    locator_ptr locator = std::make_shared<MyLocator>("./home");
+    location_ptr location = location::make(mode::LIVE, category::MD, "ctp", "ctp", locator);
+    journal_ = std::make_unique<MyJournal>(location, false);
 }
 
 CMduserHandler::CMduserHandler(CMduserHandler &&rhs) noexcept {
@@ -15,6 +20,7 @@ CMduserHandler::CMduserHandler(CMduserHandler &&rhs) noexcept {
     m_mdApi = rhs.m_mdApi;
     ppInstrument = rhs.ppInstrument;
     nInstrument = rhs.nInstrument;
+    journal_ = std::move(rhs.journal_);
     rhs.m_mdApi = nullptr;
     ppInstrument = rhs.ppInstrument;
 }
@@ -49,10 +55,10 @@ void CMduserHandler::subscribe(char* instrumentId) {
 }
 
 void CMduserHandler::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-    printf("\nOnRtnDepthMatketData\n");
-    std::cout << "TradingDay: " << pDepthMarketData->TradingDay << std::endl;
-    std::cout << "ExchangeID: " << pDepthMarketData->ExchangeID << std::endl;
-    std::cout << "InstrumentID: " << pDepthMarketData->InstrumentID << std::endl;
+    journal_->write(*pDepthMarketData);
+    // std::cout << "TradingDay: " << pDepthMarketData->TradingDay << std::endl;
+    // std::cout << "ExchangeID: " << pDepthMarketData->ExchangeID << std::endl;
+    // std::cout << "InstrumentID: " << pDepthMarketData->InstrumentID << std::endl;
 }
 
 void CMduserHandler::OnFrontConnected() {

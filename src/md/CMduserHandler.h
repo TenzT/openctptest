@@ -7,11 +7,14 @@
 #include "ThostFtdcMdApi.h"
 #include <iostream>
 
+#include "../yijinjing/journal/MyJournal.h"
+
 class CMduserHandler : public CThostFtdcMdSpi {
 private:
         CThostFtdcMdApi* m_mdApi;
         char** ppInstrument;
         int nInstrument;
+        std::unique_ptr<MyJournal> journal_;
 public:
         CMduserHandler() noexcept;
         CMduserHandler(CMduserHandler&& rhs) noexcept;

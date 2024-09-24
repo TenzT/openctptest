@@ -43,8 +43,11 @@ endif()
 add_executable(CTPTest src/main.cpp
         src/md/CMduserHandler.cpp
         src/md/CMduserHandler.h
-        src/yijinjing/MyLocator.cpp
-        src/yijinjing/MyLocator.h
+        src/yijinjing/locator/MyLocator.cpp
+        src/yijinjing/locator/MyLocator.h
+        src/yijinjing/journal/MyJournal.cpp
+        src/yijinjing/journal/MyJournal.h
+        src/entity/Quotes.h
 )
 
 target_link_libraries(CTPTest thostmduserapi_se yijinjing)

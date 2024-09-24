@@ -5,7 +5,7 @@
 
 #ifndef MYLOCATOR_H
 #define MYLOCATOR_H
-#include "../../thirdparty/yijinjing/include/kungfu/yijinjing/common.h"
+#include <kungfu/yijinjing/common.h>
 
 using namespace kungfu::yijinjing::data;
 
