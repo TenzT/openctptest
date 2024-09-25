@@ -17,7 +17,9 @@ private:
         std::unique_ptr<MyJournal> journal_;
 public:
         CMduserHandler() noexcept;
-        CMduserHandler(CMduserHandler&& rhs) noexcept;
+        explicit CMduserHandler(CMduserHandler&& rhs) noexcept;
+        ~CMduserHandler();
+
         void connect(const std::string &frontString);
         void login() const;
         void subscribe(char * instrumentId);

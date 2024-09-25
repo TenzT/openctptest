@@ -25,6 +25,11 @@ CMduserHandler::CMduserHandler(CMduserHandler &&rhs) noexcept {
     ppInstrument = rhs.ppInstrument;
 }
 
+CMduserHandler::~CMduserHandler() {
+    delete[] ppInstrument;
+    m_mdApi->Release();
+}
+
 void CMduserHandler::connect(const std::string &frontString) {
     m_mdApi = CThostFtdcMdApi::CreateFtdcMdApi("./flow_md", false, true);
 

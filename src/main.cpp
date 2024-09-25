@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
     std::cout << "Hello, World!" << std::endl;
     auto mduser_handler = InitMDHandler(argc, argv);
 
-    sleep(1000);
+    while (true) {}
 
     return 0;
 }
