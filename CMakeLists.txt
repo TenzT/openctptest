@@ -40,7 +40,7 @@ elseif(CMAKE_HOST_LINUX)
     link_directories(thirdparty/ctp/lib/lin64)
 endif()
 
-add_executable(CTPTest src/main.cpp
+add_executable(md src/main.cpp
         src/md/CMduserHandler.cpp
         src/md/CMduserHandler.h
         src/yijinjing/locator/MyLocator.cpp
@@ -50,4 +50,12 @@ add_executable(CTPTest src/main.cpp
         src/entity/Quotes.h
 )
 
-target_link_libraries(CTPTest thostmduserapi_se yijinjing)
+target_link_libraries(md thostmduserapi_se yijinjing)
+
+add_executable(master src/master_cmd.cpp
+        src/yijinjing/master/MyMaster.cpp
+        src/yijinjing/locator/MyLocator.cpp
+        src/yijinjing/locator/MyLocator.h
+        src/yijinjing/master/MyMaster.h)
+
+target_link_libraries(master yijinjing)
