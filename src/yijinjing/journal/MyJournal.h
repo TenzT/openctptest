@@ -18,7 +18,7 @@ public:
     };
     void write(const CThostFtdcDepthMarketDataField& depthMarketData) {
         auto writer = get_writer(0);
-        Quotes& quotes = writer->open_data<Quotes>(0 , 0);
+        Quotes& quotes = writer->open_data<Quotes>(this->now() , 0);
         from_ctp(depthMarketData, quotes);
         get_writer(0)->close_data();
     }
