@@ -40,7 +40,7 @@ elseif(CMAKE_HOST_LINUX)
     link_directories(thirdparty/ctp/lib/lin64)
 endif()
 
-add_executable(md src/main.cpp
+add_executable(md src/md.cpp
         src/md/CMduserHandler.cpp
         src/md/CMduserHandler.h
         src/yijinjing/locator/MyLocator.cpp

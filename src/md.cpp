@@ -1,8 +1,6 @@
 #include <iostream>
-#include <kungfu/practice/master.h>
 
 #include "../thirdparty/yijinjing/include/kungfu/practice/apprentice.h"
-#include "../thirdparty/yijinjing/include/kungfu/practice/hero.h"
 #include "md/CMduserHandler.h"
 
 std::unique_ptr<CMduserHandler> InitMDHandler(int argc, const char* argv[]) {

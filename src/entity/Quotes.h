@@ -12,6 +12,10 @@
 #define INSTRUMENT_ID_LEN 32
 #define EXCHANGE_ID_LEN 16
 
+enum msg_type: int32_t {
+    QUOTES = 101
+};
+
 struct Quotes {
     char source_id[SOURCE_ID_LEN];              //柜台ID
     char trading_day[DATE_LEN];                 //交易日
