@@ -40,7 +40,7 @@ elseif(CMAKE_HOST_LINUX)
     link_directories(thirdparty/ctp/lib/lin64)
 endif()
 
-add_executable(CTPTest src/main.cpp
+add_executable(md src/md.cpp
         src/md/CMduserHandler.cpp
         src/md/CMduserHandler.h
         src/yijinjing/locator/MyLocator.cpp
@@ -50,4 +50,26 @@ add_executable(CTPTest src/main.cpp
         src/entity/Quotes.h
 )
 
-target_link_libraries(CTPTest thostmduserapi_se yijinjing)
+target_link_libraries(md thostmduserapi_se yijinjing)
+
+add_executable(master src/master_cmd.cpp
+        src/yijinjing/master/MyMaster.cpp
+        src/yijinjing/locator/MyLocator.cpp
+        src/yijinjing/locator/MyLocator.h
+        src/yijinjing/master/MyMaster.h
+)
+
+target_link_libraries(master yijinjing)
+
+add_executable(strategy_runner src/strategy_runner.cpp
+        src/yijinjing/locator/MyLocator.cpp
+        src/yijinjing/locator/MyLocator.h
+        src/strategy/runner.cpp
+        src/strategy/runner.h)
+target_link_libraries(strategy_runner yijinjing)
+
+
+ADD_COMPILE_DEFINITIONS(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_INFO)
+ADD_COMPILE_DEFINITIONS(SPDLOG_FMT_EXTERNAL)
+ADD_COMPILE_DEFINITIONS(SPDLOG_NO_NAME)
+ADD_COMPILE_DEFINITIONS(SPDLOG_NO_ATOMIC_LEVELS)

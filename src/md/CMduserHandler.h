@@ -23,6 +23,7 @@ public:
         void connect(const std::string &frontString);
         void login() const;
         void subscribe(char * instrumentId);
+        void run() const;
 
         void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) override;
 

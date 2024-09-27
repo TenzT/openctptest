@@ -59,8 +59,15 @@ void CMduserHandler::subscribe(char* instrumentId) {
     ++nInstrument;
 }
 
+void CMduserHandler::run() const {
+    journal_->run();
+}
+
 void CMduserHandler::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {
-    journal_->write(*pDepthMarketData);
+    if (journal_->has_writer(0)) {
+        journal_->write(*pDepthMarketData);
+        std::cout << "write success" << std::endl;
+    }
     // std::cout << "TradingDay: " << pDepthMarketData->TradingDay << std::endl;
     // std::cout << "ExchangeID: " << pDepthMarketData->ExchangeID << std::endl;
     // std::cout << "InstrumentID: " << pDepthMarketData->InstrumentID << std::endl;
